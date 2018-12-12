@@ -27,9 +27,9 @@ public class Museum
     private String userID = "";
     private String password = "";
 
-private static final String ALL_GUIDES = "SELECT personnr, förnamn, efternamn FROM Guide";
-	private static final String KNOWN_LANGUAGES = "SELECT språk, kunskapnivå from SpråkKunskap WHERE guide=?";
-	private static final String NEW_LANGUAGE_SKILL = "INSERT INTO SpråkKunskap (guide, språk, kunskapnivå) VALUES (?, ?, ?)";
+private static final String ALL_GUIDES = "SELECT personnr, fÃ¶rnamn, efternamn FROM Guide";
+	private static final String KNOWN_LANGUAGES = "SELECT sprÃ¥k, kunskapnivÃ¥ from SprÃ¥kkunskap WHERE guide=?";
+	private static final String NEW_LANGUAGE_SKILL = "INSERT INTO SprÃ¥kkunskap (guide, sprÃ¥k, kunskapnivÃ¥) VALUES (?, ?, ?)";
 	
     // method for establishing a DB connection
     public void connect()
@@ -60,12 +60,12 @@ private static final String ALL_GUIDES = "SELECT personnr, förnamn, efternamn FR
 		ResultSet rs = statement.executeQuery(query);
 		
 		System.out.println("Alla guider:");
-		System.out.println("Personnr\tFörnamn\tEfternamn");
+		System.out.println("Personnr\tFÃ¶rnamn\tEfternamn");
 		while(rs.next())
 		{
 			String persnr = rs.getString("personnr");
 			String enamn = rs.getString("efternamn");
-			String fnamn = rs.getString("förnamn");
+			String fnamn = rs.getString("fÃ¶rnamn");
 			System.out.println(String.format("%s\t%s\t%s", persnr, fnamn, enamn));
 		}
 		statement.close();
@@ -105,10 +105,10 @@ private static final String ALL_GUIDES = "SELECT personnr, förnamn, efternamn FR
 
         // Loop through the result set and print the results.
         // The method next() returns false when there are no more rows.
-        System.out.println("Språk\t\tKunskapsnivå");
+        System.out.println("sprÃ¥k\t\tkunskapsnivÃ¥");
 		while (rs.next())
         {
-            System.out.println(rs.getString("språk") + "\t\t" + rs.getString("kunskapnivå"));
+            System.out.println(rs.getString("sprÃ¥k") + "\t\t" + rs.getString("kunskapnivÃ¥"));
         }
 
         // Close the variable statement and release all resources bound to it
@@ -133,10 +133,10 @@ private static final String ALL_GUIDES = "SELECT personnr, förnamn, efternamn FR
         // Retrieve the value and place it in the variable guideparam.
         guideparam = in.nextLine();
 		
-		System.out.println("Ange språk: ");
+		System.out.println("Ange sprÃ¥k: ");
 		sprakparam = in.nextLine();
 		
-		System.out.println("Ange kunskapsnivå: ");
+		System.out.println("Ange kunskapsnivÃ¥: ");
 		nivaparam = in.nextLine();
 
         // Set the SQL statement into the query variable
