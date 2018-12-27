@@ -162,22 +162,6 @@ private static final String ALL_GUIDES = "SELECT personnr, förnamn, efternamn F
 
     public static void main(String[] argv) throws Exception
     {
-        // Create a new object of this class.
-        Museum m = new Museum();
-
-        // Call methods on the object m.
-		  System.out.println("-------- connect() ---------");
-        m.connect();
-		  System.out.println("-------- showAllGuides() ---------");
-        m.showAllGuides();
-		  System.out.println("-------- getGuideLanguages() ---------");
-        m.getGuideLanguages();
-		  System.out.println("-------- insertNewLanguageSkill() ---------");
-        m.insertNewLanguageSkill();
-
-        // Commit the changes made to the database through this connection.
-        conn.commit();
-        // Close the connection.
-        conn.close();
+        GUI.create();
     }
 }
