@@ -89,4 +89,18 @@ public class DbHandler {
 		}
 		return skills;
 	}
+
+	public void deleteLanguageSkill(Guide guide, LanguageSkill langSkill) {
+		String query = "DELETE from Språkkunskap WHERE guide=? AND språk=?";
+		try {
+			PreparedStatement stmnt = conn.prepareStatement(query);
+			stmnt.setString(1, guide.getPersnr());
+			stmnt.setString(2, langSkill.getLanguage());
+			stmnt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }
