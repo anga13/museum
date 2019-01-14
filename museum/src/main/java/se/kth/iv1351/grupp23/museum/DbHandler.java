@@ -12,8 +12,8 @@ import java.util.List;
 public class DbHandler {
 	private Connection conn;// DB connection variable
 	// DB access variables
-	private String URL = "jdbc:sqlite:/home/anders/school/database/museum.db";
-	private String driver = "org.sqlite.JDBC";
+	private String URL = "jdbc:ucanaccess://c:/path/to/access/database/file.accdb";
+	private String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
 	private String userID = "";
 	private String password = "";
 
