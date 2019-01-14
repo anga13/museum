@@ -16,11 +16,11 @@ public class DbHandler {
 	private String driver = "org.sqlite.JDBC";
 	private String userID = "";
 	private String password = "";
-	
+
 	public void connect() {
 		try {
 			Class.forName(driver);
-			conn = DriverManager.getConnection(URL);
+			conn = DriverManager.getConnection(URL, userID, password);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,6 +101,56 @@ public class DbHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public List<String> findAllLanguages() {
+		String query = "SELECT * FROM Språk";
+		Statement stmnt;
+		List<String> languagages = new ArrayList<>();
+		try {
+			stmnt = conn.createStatement();
+			ResultSet rs = stmnt.executeQuery(query);
+			while (rs.next()) {
+				languagages.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return languagages;
+
+	}
+
+	public List<String> findUnregistredLanguages(Guide guide) {
+		String query = "SELECT * FROM Språk WHERE namn NOT IN (SELECT språk FROM Språkkunskap WHERE guide=?) ORDER BY namn";
+		List<String> languagages = new ArrayList<>();
+		try {
+			PreparedStatement stmnt = conn.prepareStatement(query);
+			stmnt.setString(1, guide.getPersnr());
+			ResultSet rs = stmnt.executeQuery();
+			while (rs.next()) {
+				languagages.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return languagages;
+	}
+
+	public void createNewLanguageSkill(Guide guide, LanguageSkill skill) {
+		String query = "INSERT INTO Språkkunskap (guide, språk, kunskapnivå) VALUES (?, ?, ?)";
+		try {
+			PreparedStatement stmnt = conn.prepareStatement(query);
+			stmnt.setString(1, guide.getPersnr());
+			stmnt.setString(2, skill.getLanguage());
+			stmnt.setString(3, skill.getLevel());
+			stmnt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
